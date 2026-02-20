@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'pmtool',
+	'hostname' => 'sql101.infinityfree.com',
+	'username' => 'if0_41203055',
+	'password' => 'nfLFx0ihku',
+	'database' => 'if0_41203055_pmtool',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
