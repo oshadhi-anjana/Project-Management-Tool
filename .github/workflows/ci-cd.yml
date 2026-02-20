@@ -1,0 +1,46 @@
+name: CI/CD for CodeIgniter 3
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main, dev ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'  # adjust to your project version
+          extensions: mbstring, mysqli, curl
+          coverage: xdebug
+
+      - name: Install Composer dependencies
+        run: composer install --no-progress --no-interaction
+
+      - name: Run tests
+        run: |
+          ./vendor/bin/phpunit --configuration phpunit.xml
+
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to server
+        env:
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          rsync -avz --delete ./ $DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH

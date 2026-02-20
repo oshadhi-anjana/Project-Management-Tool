@@ -1,0 +1,1 @@
+{"version":1,"defects":{"UserModelTest::testUserModelExists":4},"times":{"UserModelTest::testUserModelExists":0.011,"UserModelTest::testBootstrapLoaded":0.004,"UserModelTest::testGetInstanceExists":0,"UserModelTest::testCanGetCIInstance":0}}
